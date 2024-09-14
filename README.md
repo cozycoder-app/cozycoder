@@ -2,19 +2,56 @@
 
 Your cozy space for coding with AI.
 
-To start your Phoenix server:
+## Prerequisites
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+* Elixir 1.17
+* Erlang 27
+* Docker compose
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+### Installation
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+* Docker compose: [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* Elixir and Erlang:
+  * Recommended: Use [`mise`](https://mise.jdx.dev) with the provided
+    `.mise.toml` file:
 
-## Learn more
+    ```sh
+    mise install
+    ```
 
-* Official website: <https://www.phoenixframework.org/>
-* Guides: <https://hexdocs.pm/phoenix/overview.html>
-* Docs: <https://hexdocs.pm/phoenix>
-* Forum: <https://elixirforum.com/c/phoenix-forum>
-* Source: <https://github.com/phoenixframework/phoenix>
+  * Alternatively, follow the [official Elixir installation guide](https://elixir-lang.org/install.html)
+
+## Usage
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/yourusername/cozy-coder.git
+   cd cozy-coder
+   ```
+
+2. Launch Postgres:
+
+   ```sh
+   docker compose up -d
+   ```
+
+3. Install dependencies:
+
+   ```sh
+   mix setup
+   ```
+
+4. Start the Phoenix server:
+
+   ```sh
+   mix phx.server
+   ```
+
+   Or inside IEx:
+
+   ```sh
+   iex -S mix phx.server
+   ```
+
+5. Visit [`localhost:4000`](http://localhost:4000) in your browser.
