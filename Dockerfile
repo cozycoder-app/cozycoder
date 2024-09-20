@@ -1,4 +1,4 @@
-FROM hexpm/elixir:1.17.3-erlang-27.1-ubuntu-noble-20240801 as builder
+FROM hexpm/elixir:1.17.3-erlang-27.1-ubuntu-noble-20240801 AS builder
 
 # install build dependencies
 RUN apt-get update -y && apt-get install -y build-essential git \
@@ -54,9 +54,9 @@ RUN apt-get update -y && \
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 WORKDIR "/app"
 RUN chown nobody /app
