@@ -9,6 +9,9 @@ kill_signal = 'SIGTERM'
 
 [build]
 
+[build.args]
+MIX_ENV = "prod"
+
 [deploy]
 release_command = '/app/bin/migrate'
 

@@ -11,12 +11,13 @@ WORKDIR /app
 RUN mix local.hex --force && \
   mix local.rebar --force
 
-# download Supabase SSL ca-certificate
-RUN curl -L https://supabase-downloads.s3-ap-southeast-1.amazonaws.com/prod/ssl/prod-ca-2021.crt -o prod-ca-2021.crt
-
 # set build ENV
-ENV MIX_ENV="prod"
+ARG MIX_ENV="ce"
 ENV ERL_FLAGS="+JPperf true"
+
+# Download Supabase TLS ca-certificate
+RUN mkdir certs \
+  && if [ "${MIX_ENV}" = "prod" ]; then curl -L https://supabase-downloads.s3-ap-southeast-1.amazonaws.com/prod/ssl/prod-ca-2021.crt -o certs/prod-ca-2021.crt; fi
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -32,6 +33,7 @@ RUN mix deps.compile
 COPY priv priv
 
 COPY lib lib
+COPY ee ./ee
 
 COPY assets assets
 
@@ -51,6 +53,10 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ubuntu:noble-20240827.1
 
+# set runner ENV
+ARG MIX_ENV="ce"
+ENV MIX_ENV=${MIX_ENV}
+
 RUN apt-get update -y && \
   apt-get install -y libstdc++6 openssl libncurses6 locales ca-certificates \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
@@ -65,11 +71,8 @@ ENV LC_ALL=en_US.UTF-8
 WORKDIR "/app"
 RUN chown nobody /app
 
-# set runner ENV
-ENV MIX_ENV="prod"
-
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/prod-ca-2021.crt ./
+COPY --from=builder --chown=nobody:root /app/certs ./
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/cozycoder ./
 
 USER nobody

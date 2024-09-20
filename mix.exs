@@ -7,7 +7,7 @@ defmodule CozyCoder.MixProject do
       version: "0.1.0",
       elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
-      start_permanent: Mix.env() == :prod,
+      start_permanent: Mix.env() in [:prod, :ce],
       aliases: aliases(),
       deps: deps()
     ]
@@ -24,8 +24,9 @@ defmodule CozyCoder.MixProject do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "ee/lib"]
+  defp elixirc_paths(:ce), do: ["lib"]
+  defp elixirc_paths(_), do: ["lib", "ee/lib"]
 
   # Specifies your project dependencies.
   #
