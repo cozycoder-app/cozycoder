@@ -1,7 +1,7 @@
 FROM hexpm/elixir:1.17.3-erlang-27.1-ubuntu-noble-20240801 AS builder
 
 # install build dependencies
-RUN apt-get update -y && apt-get install -y build-essential git \
+RUN apt-get update -y && apt-get install -y build-essential git curl \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
@@ -10,6 +10,9 @@ WORKDIR /app
 # install hex + rebar
 RUN mix local.hex --force && \
   mix local.rebar --force
+
+# download Supabase SSL ca-certificate
+RUN curl -L https://supabase-downloads.s3-ap-southeast-1.amazonaws.com/prod/ssl/prod-ca-2021.crt -o prod-ca-2021.crt
 
 # set build ENV
 ENV MIX_ENV="prod"
@@ -65,6 +68,7 @@ RUN chown nobody /app
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
+COPY --from=builder --chown=nobody:root /app/prod-ca-2021.crt ./
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/cozycoder ./
 
 USER nobody
