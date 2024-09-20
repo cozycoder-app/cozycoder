@@ -56,8 +56,12 @@ jobs:
 
   build-image:
 
-    name: Build container image
+    name: Build ${{ matrix.env }} container image
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        env: [prod, ce]
 
     steps:
       - uses: actions/checkout@v4
@@ -67,11 +71,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.env }}
       - name: Build
         uses: docker/build-push-action@v6
         with:
           context: .
           push: false
+          build-args: |
+            MIX_ENV=${{ matrix.env }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
