@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        env: [prod, ce]
+        env: [ce]
 
     steps:
       - uses: actions/checkout@v4
