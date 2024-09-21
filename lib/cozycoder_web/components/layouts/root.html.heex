@@ -35,7 +35,7 @@
           </.link>
         </li>
       <% else %>
-        <li>
+        <li :if={Application.fetch_env!(:cozycoder, :user_registration)}>
           <.link
             href={~p"/users/register"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
