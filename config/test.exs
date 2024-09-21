@@ -1,5 +1,11 @@
 import Config
 
+# Only in tests, remove the complexity from the password hashing algorithm
+config :argon2_elixir, t_cost: 1, m_cost: 8
+
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -22,6 +28,9 @@ config :cozycoder, CozyCoderWeb.Endpoint,
 
 # In test we don't send emails
 config :cozycoder, CozyCoder.Mailer, adapter: Swoosh.Adapters.Test
+
+# Enable user registration
+config :cozycoder, user_registration: true
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false

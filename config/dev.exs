@@ -65,6 +65,9 @@ config :cozycoder, CozyCoderWeb.Endpoint,
 # Enable dev routes for dashboard and mailbox
 config :cozycoder, dev_routes: true
 
+# Enable user registration
+config :cozycoder, user_registration: true
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

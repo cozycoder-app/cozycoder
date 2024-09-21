@@ -10,6 +10,9 @@ config :cozycoder, CozyCoder.Repo, ssl: [cacertfile: "/app/prod-ca-2021.crt"]
 # before starting your production server.
 config :cozycoder, CozyCoderWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
+# Disable user registration
+config :cozycoder, user_registration: false
+
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: CozyCoder.Finch
 
