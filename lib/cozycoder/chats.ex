@@ -4,6 +4,7 @@ defmodule CozyCoder.Chats do
   """
 
   import Ecto.Query, warn: false
+  alias CozyCoder.Chats.Message
   alias CozyCoder.Repo
 
   alias CozyCoder.Chats.Chat
@@ -100,5 +101,57 @@ defmodule CozyCoder.Chats do
   """
   def change_chat(%Chat{} = chat, attrs \\ %{}) do
     Chat.changeset(chat, attrs)
+  end
+
+  @doc """
+    Creates a message in the given chat.
+
+    ## Examples
+
+    iex> create_message(chat, %{user_message: "foo"}
+    {:ok, %Message{}}
+
+    iex> create_message(chat,%{user_message: bad_value}
+    {:error, %Ecto.Changeset{}}
+
+  """
+  def create_message(%Chat{} = chat, attrs \\ %{}) do
+    chat
+    |> Message.changeset_new(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a message.
+
+  ## Examples
+
+      iex> update_message(message, %{field: new_value})
+      {:ok, %Message{}}
+
+      iex> update_message(message, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_message(%Message{} = message, attrs \\ %{}) do
+    message
+    |> Message.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+    Loads the messages of the given chat.
+
+    ## Examples
+
+    iex> load_messages(chat)
+    %Chat{}
+  """
+  def load_messages(chat) do
+    unless Ecto.assoc_loaded?(chat.messages) do
+      Repo.preload(chat, :messages)
+    else
+      chat
+    end
   end
 end

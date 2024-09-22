@@ -1,4 +1,5 @@
 defmodule CozyCoder.Chats.Chat do
+  alias CozyCoder.Chats.Message
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -7,6 +8,7 @@ defmodule CozyCoder.Chats.Chat do
   schema "chats" do
     field :title, :string
 
+    has_many :messages, Message
     timestamps(type: :utc_datetime)
   end
 
