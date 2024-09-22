@@ -1,6 +1,5 @@
 <.header>
-  Chat <%= @chat.id %>
-  <:subtitle>This is a chat record from your database.</:subtitle>
+  <%= @chat.title %>
   <:actions>
     <.link patch={~p"/chats/#{@chat}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit chat</.button>
