@@ -1,4 +1,4 @@
-FROM hexpm/elixir:1.17.3-erlang-27.1-ubuntu-noble-20240801 AS builder
+FROM hexpm/elixir:1.17.3-erlang-27.1-debian-bookworm-20240904 AS builder
 
 # install build dependencies
 RUN apt-get update -y && apt-get install -y build-essential git curl \
