@@ -52,7 +52,7 @@ defmodule CozyCoderWeb.Router do
 
     live_session :redirect_if_user_is_authenticated,
       on_mount: [{CozyCoderWeb.UserAuth, :redirect_if_user_is_authenticated}] do
-      if Application.fetch_env!(:cozycoder, :user_registration) do
+      if Application.compile_env(:cozycoder, :user_registration) do
         live "/users/register", UserRegistrationLive, :new
       end
 
@@ -71,6 +71,12 @@ defmodule CozyCoderWeb.Router do
       on_mount: [{CozyCoderWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/chats", ChatLive.Index, :index
+      live "/chats/new", ChatLive.Index, :new
+      live "/chats/:id/edit", ChatLive.Index, :edit
+      live "/chats/:id", ChatLive.Show, :show
+      live "/chats/:id/show/edit", ChatLive.Show, :edit
     end
   end
 
