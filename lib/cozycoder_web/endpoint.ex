@@ -7,7 +7,7 @@ defmodule CozyCoderWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_cozycoder_key",
-    signing_salt: "OWbkePNy",
+    signing_salt: "58s52eJH",
     same_site: "Lax"
   ]
 

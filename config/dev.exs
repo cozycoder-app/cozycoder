@@ -2,13 +2,10 @@ import Config
 
 # Configure your database
 config :cozycoder, CozyCoder.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "cozycoder_dev",
+  database: Path.expand("../cozycoder_dev.db", __DIR__),
+  pool_size: 5,
   stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -64,9 +61,6 @@ config :cozycoder, CozyCoderWeb.Endpoint,
 
 # Enable dev routes for dashboard and mailbox
 config :cozycoder, dev_routes: true
-
-# Enable user registration
-config :cozycoder, user_registration: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
