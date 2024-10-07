@@ -51,7 +51,7 @@ RUN mix release
 
 # start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM ubuntu:noble-20240827.1
+FROM ubuntu:noble-20240904.1
 
 # set runner ENV
 ARG MIX_ENV="ce"
