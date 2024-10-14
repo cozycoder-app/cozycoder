@@ -42,23 +42,64 @@ fn view(model: Model) -> Element(Msg) {
     Some(person) -> person.name
     _ -> "developers"
   }
-  html.div([], [
-    html.p([], [element.text("Hello, " <> name <> "!")]),
-    html.input([
-      attribute.value(model.value),
-      event.on_input(UserEnteredName),
-      attribute.class(
-        "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-      ),
-    ]),
-    html.button(
+  html.div([attribute.class("max-w-3xl mx-auto p-5")], [
+    html.div(
       [
-        event.on_click(UserClickedGreet),
         attribute.class(
-          "inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500",
+          "border border-rosepine-overlay rounded-lg overflow-hidden flex flex-col h-screen bg-rosepine-surface",
         ),
       ],
-      [element.text("Greet")],
+      [
+        html.div(
+          [attribute.class("bg-rosepine-overlay p-4 text-center font-bold")],
+          [element.text("Rose Pine Chat")],
+        ),
+        html.div([attribute.class("flex-grow overflow-y-auto p-4 space-y-4")], [
+          html.div([], [
+            html.div(
+              [attribute.class("bg-rosepine-highlightMed p-3 rounded-lg")],
+              [element.text("What's special about the Rose Pine theme?")],
+            ),
+          ]),
+          html.div([], [
+            html.div([attribute.class("bg-rosepine-overlay p-3 rounded-lg")], [
+              element.text(
+                "Rose Pine is a color scheme known for its soothing and sophisticated palette. It uses muted, earthy tones that are easy on the eyes, making it popular for user interfaces and code editors.",
+              ),
+            ]),
+          ]),
+          html.div([], [
+            html.div(
+              [attribute.class("bg-rosepine-highlightMed p-3 rounded-lg")],
+              [element.text("How does it improve user experience?")],
+            ),
+          ]),
+          html.div([], [
+            html.div([attribute.class("bg-rosepine-overlay p-3 rounded-lg")], [
+              element.text(
+                "The Rose Pine theme can enhance user experience by reducing eye strain with its soft colors. It creates a calm, focused environment that's particularly suitable for long coding sessions or extended use of applications.",
+              ),
+            ]),
+          ]),
+        ]),
+        html.div([attribute.class("flex p-4 bg-rosepine-overlay")], [
+          html.input([
+            attribute.type_("text"),
+            attribute.placeholder("Type your message..."),
+            attribute.class(
+              "flex-grow mr-2 p-2 rounded bg-rosepine-surface border border-rosepine-muted text-rosepine-text focus:outline-none focus:border-rosepine-pine",
+            ),
+          ]),
+          html.button(
+            [
+              attribute.class(
+                "w-10 h-10 bg-rosepine-pine text-rosepine-text rounded flex items-center justify-center hover:bg-rosepine-foam hover:text-rosepine-base transition-colors",
+              ),
+            ],
+            [element.text("Send")],
+          ),
+        ]),
+      ],
     ),
   ])
 }
